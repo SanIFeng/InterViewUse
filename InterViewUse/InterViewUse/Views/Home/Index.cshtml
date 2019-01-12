@@ -17,7 +17,7 @@
         }
     </style>
     }
-<h2>首頁</h2>
+<button class="btn btn-outline-info m-1" id="btn_create_new">新增一筆資料</button>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -57,11 +57,10 @@
 @section script{
     <script>
         $(document).ready(function () {
-            var CreateNew = $("a[name='CreateNew']");
+            var CreateNew = $("#btn_create_new");
             var show_partial = $("#show_partial");
             var I_tbody = $("#I_tbody");
-            CreateNew.click(function (e) {
-                e.preventDefault();
+            CreateNew.click(function () {
                 show_partial.load('@Url.Action("CreateNewOne_partial", "Home")')
                 $(this).attr({ "data-toggle": "modal", "data-target": "#createnewone" })               
             });

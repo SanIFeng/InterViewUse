@@ -1,0 +1,56 @@
+﻿@model InterViewUse.Models.Shippers
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>第二頁面</h2>
+<button id="btn_create" class="btn btn-outline-info m-1">新增一間運輸公司</button>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(s => s.ShipperID)</th>
+            <th>@Html.DisplayNameFor(s => s.CompanyName)</th>
+            <th>@Html.DisplayNameFor(s => s.Phone)</th>
+            <th>編輯</th>
+        </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+</table>
+<!-- Modal -->
+<div class="modal fade" id="Api_Model" tabindex="-1" role="dialog" aria-labelledby="createnewoneTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content show_model">
+            <div class="modal-body">
+                <div id="show_partial"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@section script{
+    <script>
+        $(document).ready(function () {
+            var btn_create = $("#btn_create");
+            var tbody = $("#tbody");
+            var url = "/api/Apis"
+            var doc = $(document.createDocumentFragment());
+            $.ajax({
+                type: "Get",
+                url: url
+            }).done(function (datas) {
+                $.each(datas, function (i, v) {
+                    var tr = $("<tr></tr>");
+                    var td1 = $("<td></td>").text(v.ShipperID);
+                    var td2 = $("<td></td>").text(v.CompanyName);
+                    var td3 = $("<td></td>").text(v.Phone);
+                    var td4 = $("<td></td>").append("<button title='編輯' class='btn btn-info mr-1'><i class='far fa-edit'></i></button> <button title='刪除' class='btn btn-danger ml-1'><i class='fas fa-trash-alt'></i></button>");
+                    tr.append([td1, td2, td3, td4]);
+                    doc.append(tr);
+                });
+                tbody.append(doc);
+            });
+            btn_create.click(function () {
+                $(this).attr({ "data-toggle": "modal", "data-target": "#Api_Model"})
+            });
+        });
+    </script>
+}
