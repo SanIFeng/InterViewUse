@@ -12,6 +12,9 @@
             align-items: center;
             justify-content: space-around;
         }
+        tr{
+            text-align:center;
+        }
     </style>
     }
 <h2>首頁</h2>
@@ -21,15 +24,20 @@
             <th>@Html.DisplayNameFor(s => s.ShipperID)</th>
             <th>@Html.DisplayNameFor(s => s.CompanyName)</th>
             <th>@Html.DisplayNameFor(s => s.Phone)</th>
+            <th>編輯</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="I_tbody">
         @foreach (var s in Model)
         {
             <tr>
                 <td>@s.ShipperID</td>
                 <td>@s.CompanyName</td>
                 <td>@s.Phone</td>
+                <td>
+                    <button type="button" name="btn_edit" class="btn btn-info mr-1" title="編輯" data-value="@s.ShipperID"><i class="far fa-edit"></i></button>
+                    <button type="button" name="btn_del" class="btn btn-danger ml-1" title="刪除" data-value="@s.ShipperID"><i class="fas fa-trash-alt"></i></button>
+                </td>
             </tr>
         }
     </tbody>
@@ -57,11 +65,16 @@
         $(document).ready(function () {
             var CreateNew = $("a[name='CreateNew']");
             var show_partial = $("#show_partial");
+            var I_tbody = $("#I_tbody");
+            var btn_edit = $("#btn_edit");
             CreateNew.click(function (e) {
                 e.preventDefault();
-                @*show_partial.load('@Url.Action("CreateNewOne_partial", "Home")')*@
-                show_partial.load("/Home/CreateNewOne_partial")
+                show_partial.load('@Url.Action("CreateNewOne_partial", "Home")')
                 $(this).attr({ "data-toggle": "modal", "data-target": "#createnewone" })               
+            });
+            I_tbody.on("click", "td>button[name='btn_edit']", function () {
+                show_partial.load("/Home/AlterShip_partial/" + $(this).data("value"))
+                $(this).attr({ "data-toggle": "modal", "data-target": "#createnewone" })                
             });
         });
     </script>

@@ -15,6 +15,7 @@ namespace InterViewUse.Controllers
         {
             return View(shippers.GetAll());
         }
+        //===================================新增=========================================
         [HttpGet]
         public ActionResult CreateNewOne_partial()
         {
@@ -28,6 +29,21 @@ namespace InterViewUse.Controllers
                 Shippers sp = new Shippers() { CompanyName = CompanyName, Phone = Phone };
                 shippers.Create(sp);                
             }
+            return RedirectToAction("Index");
+        }
+        //==================================修改=============================================
+        [HttpGet]
+        public ActionResult AlterShip_partial(int id)
+        {           
+            return PartialView(shippers.GetByID(id));
+        }
+        [HttpPost]
+        public ActionResult AlterShip_partial(Shippers sh)
+        {
+            if(sh!=null)
+            {
+                shippers.Update(sh);
+            }           
             return RedirectToAction("Index");
         }
     }
