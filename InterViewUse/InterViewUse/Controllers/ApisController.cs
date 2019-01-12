@@ -14,5 +14,18 @@ namespace InterViewUse.Controllers
         {
             return shippers.GetAll();
         }
+        public IHttpActionResult PostNewone(Shippers sh)
+        {
+            if (sh != null)
+            {
+                shippers.Create(sh);
+                return Json<string>("新增成功");
+            }
+            else
+            {
+               return Json<string>("新增失敗");
+            }
+            
+        }
     }
 }

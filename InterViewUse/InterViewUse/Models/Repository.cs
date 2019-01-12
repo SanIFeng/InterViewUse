@@ -18,7 +18,7 @@ namespace InterViewUse.Models
         public void Create(T _entity)
         {
             db.Entry(_entity).State = EntityState.Added;
-            db.SaveChanges();
+            //db.SaveChanges();
         }
 
         public void Delete(T _entity)
