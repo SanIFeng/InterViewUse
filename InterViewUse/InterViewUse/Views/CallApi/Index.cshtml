@@ -31,7 +31,7 @@
                     @Html.TextBoxFor(s => s.Phone, new { @class = "form-control", required = "required" })
                 </div>
                 <div class="display_flex_justify-content_space-around">
-                    <button type="submit" name="btn_create" class="btn btn-primary">新增</button>
+                    <button type="submit" name="btn_create" data-dismiss="modal" class="btn btn-primary">新增</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                 </div>
             </div>
@@ -73,7 +73,6 @@
                     data: datas
                 }).done(function (datas) {
                     alert(datas);                   
-                    //btn_create.attr("data-toggle","modal")
                     load();
                     })
             });
