@@ -213,6 +213,7 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Home\CreateNewOne_partial.cshtml" />
     <Content Include="Views\Home\AlterShip_partial.cshtml" />
+    <Content Include="Views\Home\Delete_shih_partial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

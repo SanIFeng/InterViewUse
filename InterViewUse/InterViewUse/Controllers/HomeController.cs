@@ -46,5 +46,21 @@ namespace InterViewUse.Controllers
             }           
             return RedirectToAction("Index");
         }
+        //======================================刪除=============================================
+        [HttpGet]
+        public ActionResult Delete_shih_partial(int id)
+        {
+            ViewBag.D_ID = id;
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult Delete_shih_partial(int id = 0,int no = 0)
+        {
+            if (id != 0)
+            {
+                shippers.Delete(shippers.GetByID(id));
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

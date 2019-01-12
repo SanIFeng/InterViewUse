@@ -1,0 +1,11 @@
+﻿@using (Html.BeginForm("Delete_shih_partial", "Home", FormMethod.Post))
+{
+    <input type="hidden" name="ShipperID" value="@ViewBag.D_ID" />
+    <div class="form-group">    
+        <h5>確認刪除此筆??</h5>
+    </div> 
+    <div class="display_flex_justify-content_space-around">
+        <button type="submit" class="btn btn-primary">刪除</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+    </div>
+}

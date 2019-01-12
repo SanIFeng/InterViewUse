@@ -47,12 +47,6 @@
 <div class="modal fade" id="createnewone" tabindex="-1" role="dialog" aria-labelledby="createnewoneTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content show_model" >
-            <div class="modal-header">
-                <h5 class="modal-title" id="createnewoneTitle">新增一間運輸公司</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
             <div class="modal-body">
                <div id="show_partial"></div>
             </div>
@@ -66,7 +60,6 @@
             var CreateNew = $("a[name='CreateNew']");
             var show_partial = $("#show_partial");
             var I_tbody = $("#I_tbody");
-            var btn_edit = $("#btn_edit");
             CreateNew.click(function (e) {
                 e.preventDefault();
                 show_partial.load('@Url.Action("CreateNewOne_partial", "Home")')
@@ -75,6 +68,10 @@
             I_tbody.on("click", "td>button[name='btn_edit']", function () {
                 show_partial.load("/Home/AlterShip_partial/" + $(this).data("value"))
                 $(this).attr({ "data-toggle": "modal", "data-target": "#createnewone" })                
+            });
+            I_tbody.on("click", "td>button[name='btn_del']", function () {
+                show_partial.load("/Home/Delete_shih_partial/" + $(this).data("value"))
+                $(this).attr({ "data-toggle": "modal", "data-target": "#createnewone" })    
             });
         });
     </script>
