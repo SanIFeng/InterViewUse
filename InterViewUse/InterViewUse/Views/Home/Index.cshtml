@@ -1,7 +1,25 @@
-﻿
+﻿@model IEnumerable<InterViewUse.Models.Shippers>
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<h2>首頁</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(s=>s.ShipperID)</th>
+            <th>@Html.DisplayNameFor(s => s.CompanyName)</th>
+            <th>@Html.DisplayNameFor(s => s.Phone)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var s in Model)
+        {
+        <tr>
+            <td>@s.ShipperID</td>
+            <td>@s.CompanyName</td>
+            <td>@s.Phone</td>
+        </tr>
+        }
+    </tbody>
+</table>
