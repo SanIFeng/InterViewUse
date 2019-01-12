@@ -2,24 +2,67 @@
 @{
     ViewBag.Title = "Index";
 }
-
+@section style{
+    <style>
+        .show_model {
+            max-width: 350px;
+        }
+        .display_flex_justify-content_space-around {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+    </style>
+    }
 <h2>首頁</h2>
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(s=>s.ShipperID)</th>
+            <th>@Html.DisplayNameFor(s => s.ShipperID)</th>
             <th>@Html.DisplayNameFor(s => s.CompanyName)</th>
             <th>@Html.DisplayNameFor(s => s.Phone)</th>
         </tr>
     </thead>
     <tbody>
-        @foreach(var s in Model)
+        @foreach (var s in Model)
         {
-        <tr>
-            <td>@s.ShipperID</td>
-            <td>@s.CompanyName</td>
-            <td>@s.Phone</td>
-        </tr>
+            <tr>
+                <td>@s.ShipperID</td>
+                <td>@s.CompanyName</td>
+                <td>@s.Phone</td>
+            </tr>
         }
     </tbody>
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="createnewone" tabindex="-1" role="dialog" aria-labelledby="createnewoneTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content show_model" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="createnewoneTitle">新增一間運輸公司</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <div id="show_partial"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script>
+        $(document).ready(function () {
+            var CreateNew = $("a[name='CreateNew']");
+            var show_partial = $("#show_partial");
+            CreateNew.click(function (e) {
+                e.preventDefault();
+                @*show_partial.load('@Url.Action("CreateNewOne_partial", "Home")')*@
+                show_partial.load("/Home/CreateNewOne_partial")
+                $(this).attr({ "data-toggle": "modal", "data-target": "#createnewone" })               
+            });
+        });
+    </script>
+}
