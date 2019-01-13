@@ -26,5 +26,7 @@ namespace InterViewUse.Models
         }
     
         public virtual DbSet<Shippers> Shippers { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
     }
 }

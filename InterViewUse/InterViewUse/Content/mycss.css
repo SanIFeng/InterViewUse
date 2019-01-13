@@ -31,7 +31,22 @@ thead {
     text-decoration:none;
     color:black;
 }
-
+.screen {
+    width: 100%;
+    margin: 0 auto;
+}
+.shop_list {
+    width: 19%;
+    margin-right: 1%;
+    float: left;
+}
+.shop_product {
+    width: 80%;
+    overflow: auto;
+}
+.footer_use {
+    clear: both;
+}
 @media only screen and (max-width:768px){
     .navbar-nav{
        flex-direction:initial;

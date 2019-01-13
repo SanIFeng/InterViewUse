@@ -1,0 +1,60 @@
+﻿@model InterViewUse.Models.ShopUse
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>商城</h2>
+<div class="screen">
+    <div class="shop_list">
+        <div id="category_list" class="list-group">
+            <a id="cate_init" href="#" data-value="@TempData["change"]" class="list-group-item list-group-item-action disabled">產品種類</a>
+            <a href="~/Shop/Index/0" name="category_title_id" data-value="0" class="list-group-item list-group-item-action ">所有產品</a>
+            @foreach (var c in Model.categories)
+            {
+                <a href="~/Shop/Index/@c.CategoryID" name="category_id" data-value="@c.CategoryID" class="list-group-item list-group-item-action">@c.CategoryName</a>
+            }
+        </div>
+    </div>
+    <div class="shop_product">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(p => p.products.FirstOrDefault().ProductName)</th>
+                    <th>@Html.DisplayNameFor(p => p.products.FirstOrDefault().UnitPrice)</th>
+                    <th>@Html.DisplayNameFor(p => p.products.FirstOrDefault().UnitsInStock)</th>
+                    <th>種類照片</th>
+                </tr>
+            </thead>
+            <tbody >
+                @foreach (var p in Model.products)
+                {
+                    <tr>
+                        <td>@p.ProductName</td>
+                        <td>@p.UnitPrice</td>
+                        <td>@p.UnitsInStock</td>
+                        <td>
+                            <img src="@Url.Action("GetImage","Shop",new {id = p.CategoryID})" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section script{
+    <script>
+        $(document).ready(function () {
+            console.log($("#cate_init").data("value"));
+            if ($("#cate_init").data("value") == 0) {
+                $("a[name='category_title_id']").addClass("active");
+            }
+            else {
+                $("#category_list>a[name='category_id']").each(function () {
+                    if ($(this).data("value") == $("#cate_init").data("value")) {
+                        $(this).addClass("active")
+                    }
+                });
+            }
+        });
+    </script>
+}

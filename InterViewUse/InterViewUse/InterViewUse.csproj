@@ -194,8 +194,12 @@
     <Compile Include="Controllers\ApisController.cs" />
     <Compile Include="Controllers\CallApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Categories.cs">
+      <DependentUpon>NorthwindModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\NorthwindModel.Context.cs">
@@ -213,11 +217,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NorthwindModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Partial\Products.cs" />
     <Compile Include="Models\Partial\Shippers.cs" />
+    <Compile Include="Models\Products.cs">
+      <DependentUpon>NorthwindModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\Shippers.cs">
       <DependentUpon>NorthwindModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ShopUse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +241,7 @@
     <Content Include="Views\Home\AlterShip_partial.cshtml" />
     <Content Include="Views\Home\Delete_shih_partial.cshtml" />
     <Content Include="Views\CallApi\Index.cshtml" />
+    <Content Include="Views\Shop\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
