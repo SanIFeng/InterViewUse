@@ -16,14 +16,13 @@ namespace InterViewUse.Controllers
         }
         public IHttpActionResult PostNewone(Shippers sh)
         {
-            if (sh != null)
+            if (!ModelState.IsValid)//發生綁定前值為null，判斷值是否為有效
             {
-                shippers.Create(sh);
-                return Json<string>("新增成功");
+                return BadRequest(ModelState);//回傳代碼400(值無效)
             }
             else
-            {
-               return Json<string>("新增失敗");
+            {   shippers.Create(sh);
+                return StatusCode(HttpStatusCode.Created);//回傳值為201
             }
             
         }

@@ -47,6 +47,7 @@
             var doc = $(document.createDocumentFragment());
             function load()
             {
+                tbody.html("");
                 $.ajax({
                     type: "Get",
                     url: url
@@ -70,11 +71,14 @@
                     type: "Post",
                     url: url,
                     contentType:"application/json",
-                    data: datas
-                }).done(function (datas) {
-                    alert(datas);                   
-                    load();
-                    })
+                    data: datas,
+                    statusCode: {
+                        201: function (data) {
+                            alert("新增成功");
+                            load();
+                        }
+                    }
+                })
             });
         });
     </script>
