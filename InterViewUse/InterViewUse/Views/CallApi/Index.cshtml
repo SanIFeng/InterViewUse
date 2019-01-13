@@ -38,10 +38,27 @@
         </div>
     </div>
 </div>
+<div class="modal show" id="Check_del" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-group">
+                    <h5>確認刪除此筆??</h5>
+                </div>
+                <div class="display_flex_justify-content_space-around">
+                    <input type="hidden" id="h_value"/>
+                    <button id="btn_s_del" type="button" class="btn btn-primary" data-dismiss="modal">刪除</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @section script{
     <script>
         $(document).ready(function () {
             var btn_create = $("button[name='btn_create']");
+            var btn_s_del = $("#btn_s_del");
             var tbody = $("#tbody");
             var url = "/api/Apis"
             function load()
@@ -108,6 +125,24 @@
                         }
                     });
                 }                  
+            });
+            //=========================================按下刪除================================================
+            tbody.on("click", "td>button[name='btn_del']", function () {
+                $(this).attr({ "data-toggle": "modal", "data-target": "#Check_del" })
+                $("#h_value").val($(this).parents("tr").children("td:nth-child(1)").text());
+            });
+            btn_s_del.click(function () {
+                $.ajax({
+                    type: "Delete",
+                    url: url + "/" + $("#h_value").val(),
+                    contentType: "application/json",
+                    statusCode: {
+                        204: function (data) {
+                            alert("刪除成功");
+                            load();
+                        }
+                    }
+                })
             });
         });
     </script>

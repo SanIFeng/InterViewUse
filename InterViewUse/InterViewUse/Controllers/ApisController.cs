@@ -40,5 +40,18 @@ namespace InterViewUse.Controllers
                 return StatusCode(HttpStatusCode.NoContent);//回傳值為204
             }
         }
+        //===================================刪除一筆資料================================
+        public IHttpActionResult DeletectShip(int id)
+        {
+            if (!ModelState.IsValid)//發生綁定前值為null，判斷值是否為有效
+            {
+                return BadRequest(ModelState);//回傳代碼400(值無效)
+            }
+            else
+            {
+                shippers.Delete(shippers.GetByID(id));
+                return StatusCode(HttpStatusCode.NoContent);//回傳值為204
+            }
+        }
     }
 }
