@@ -1,0 +1,45 @@
+﻿* {
+    font-family: 'Microsoft JhengHei';
+}
+.show_model {
+    max-width: 350px;
+}
+
+.display_flex_justify-content_space-around {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+table {
+    table-layout: fixed;
+    word-break: break-all;
+}
+tr {
+    text-align: center;   
+}
+tbody tr:hover{
+    background-color:lemonchiffon;
+}
+thead {
+    background-color: #46a3ff;
+    color:white;
+}
+.navbar-nav a{
+    margin-right:10px;
+    padding-right:5px;
+    border-right:1px solid gray;
+    text-decoration:none;
+    color:black;
+}
+
+@media only screen and (max-width:768px){
+    .navbar-nav{
+       flex-direction:initial;
+    }
+    .ml-1{
+        margin-left:0px !important;
+    }
+    .mr-1{
+        margin-right:0px !important;
+    }
+}

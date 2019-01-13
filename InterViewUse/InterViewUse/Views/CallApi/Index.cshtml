@@ -3,9 +3,9 @@
     ViewBag.Title = "Index";
 }
 
-<h2>第二頁面</h2>
-<button class="btn btn-outline-info m-1" data-toggle="modal" data-target="#Api_Model">新增一間運輸公司</button>
-<table class="table table-bordered">
+<h2>使用Api</h2>
+<button class="btn btn-outline-info m-1" data-toggle="modal" data-target="#Api_Model">新增一筆資料</button>
+<table class="table table-bordered ">
     <thead>
         <tr>
             <th>@Html.DisplayNameFor(s => s.ShipperID)</th>
@@ -60,9 +60,9 @@
             var btn_create = $("button[name='btn_create']");
             var btn_s_del = $("#btn_s_del");
             var tbody = $("#tbody");
-            var url = "/api/Apis"
             function load()
             {
+                var url = "/api/Apis"
                 tbody.html("");
                 var doc = $(document.createDocumentFragment());
                 $.ajax({
