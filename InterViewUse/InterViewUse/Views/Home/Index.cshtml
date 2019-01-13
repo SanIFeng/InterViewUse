@@ -2,7 +2,12 @@
 @{
     ViewBag.Title = "Index";
 }
-<button class="btn btn-outline-info m-1" id="btn_create_new">新增一筆資料</button>
+<div>
+    <button class="btn btn-outline-info m-1" id="btn_create_new">新增一筆資料</button>
+    <label for="txt_search">輸入公司編號查詢:</label>
+    <input type="text" id="txt_search" name="txt_search" placeholder="輸入公司編號" />
+    <button id="btn_search" type="button" class="btn btn-light">查詢</button>
+</div>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -45,6 +50,9 @@
             var CreateNew = $("#btn_create_new");
             var show_partial = $("#show_partial");
             var I_tbody = $("#I_tbody");
+            var btn_search = $("#btn_search");
+            var reg = /^[1-9]{1}[\d]*$/;
+            var txt_search = $("#txt_search");
             CreateNew.click(function () {
                 show_partial.load('@Url.Action("CreateNewOne_partial", "Home")')
                 $(this).attr({ "data-toggle": "modal", "data-target": "#createnewone" })               
@@ -56,6 +64,16 @@
             I_tbody.on("click", "td>button[name='btn_del']", function () {
                 show_partial.load("/Home/Delete_shih_partial/" + $(this).data("value"))
                 $(this).attr({ "data-toggle": "modal", "data-target": "#createnewone" })    
+            });
+            btn_search.click(function () {
+                //
+                if (reg.test(txt_search.val())) {
+                    alert(txt_search.val());
+                }
+                else {
+                    alert("請輸入0以上的數字");
+                    txt_search.val("");
+                }
             });
         });
     </script>
