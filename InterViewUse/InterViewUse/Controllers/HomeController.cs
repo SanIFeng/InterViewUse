@@ -12,8 +12,21 @@ namespace InterViewUse.Controllers
         Repository<Shippers> shippers = new Repository<Shippers>();
         // GET: Home
         public ActionResult Index()
+        {   
+           return View(shippers.GetAll());           
+        }
+        public ActionResult Search(int id = 0)
         {
-            return View(shippers.GetAll());
+            var search = shippers.GetByID(id);
+            if(search !=null)
+            {
+              return Json(search, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+               return Json("無此公司編號", JsonRequestBehavior.AllowGet);
+            }
+
         }
         //===================================新增=========================================
         [HttpGet]

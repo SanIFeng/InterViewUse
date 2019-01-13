@@ -7,6 +7,8 @@
     <label for="txt_search">輸入公司編號查詢:</label>
     <input type="text" id="txt_search" name="txt_search" placeholder="輸入公司編號" />
     <button id="btn_search" type="button" class="btn btn-light">查詢</button>
+    <a class="btn btn-outline-success" href="~/Home/Index">顯示全部</a>
+
 </div>
 <table class="table table-bordered">
     <thead>
@@ -68,7 +70,26 @@
             btn_search.click(function () {
                 //
                 if (reg.test(txt_search.val())) {
-                    alert(txt_search.val());
+                    $.ajax({
+                        type: "Get",
+                        url: '@Url.Action("Search", "Home")',
+                        data: { id: txt_search.val() }
+                    }).done(function (datas) {
+                        if (datas != "無此公司編號") {
+                            I_tbody.text("");
+                            var tr = $("<tr></tr>");
+                            var td1 = $("<td></td>").text(datas.ShipperID);
+                            var td2 = $("<td></td>").text(datas.CompanyName);
+                            var td3 = $("<td></td>").text(datas.Phone);
+                            var td4 = $("<td></td>").html('<button type="button" name="btn_edit" class="btn btn-info mr-1" title="編輯" data-value="' + datas.ShipperID + '"><i class="far fa-edit"></i></button><button type="button" name="btn_del" class="btn btn-danger ml-1" title="刪除" data-value="' + datas.ShipperID + '"><i class="fas fa-trash-alt"></i></button>');
+                            tr.append([td1, td2, td3, td4]);
+                            I_tbody.append(tr);
+                        }
+                        else {
+                            alert("無此公司編號!!");
+                            txt_search.val("");
+                        }
+                    });
                 }
                 else {
                     alert("請輸入0以上的數字");
