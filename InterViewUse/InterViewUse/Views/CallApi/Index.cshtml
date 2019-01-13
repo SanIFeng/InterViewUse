@@ -4,7 +4,14 @@
 }
 
 <h2>使用Api</h2>
-<button class="btn btn-outline-info m-1" data-toggle="modal" data-target="#Api_Model">新增一筆資料</button>
+<div>
+    <button class="btn btn-outline-info m-1" data-toggle="modal" data-target="#Api_Model">新增一筆資料</button>
+    <label for="txt_search">輸入公司編號查詢:</label>
+    <input type="text" id="txt_search" name="txt_search" placeholder="輸入公司編號" />
+    <button id="btn_search" type="button" class="btn btn-light">查詢</button>
+    <a id="search_all" class="btn btn-outline-success" href="#">顯示全部</a>
+</div>
+
 <table class="table table-bordered ">
     <thead>
         <tr>
@@ -60,10 +67,15 @@
             var btn_create = $("button[name='btn_create']");
             var btn_s_del = $("#btn_s_del");
             var tbody = $("#tbody");
+            var btn_search = $("#btn_search");
+            var search_all = $("#search_all");
+            var txt_search = $("#txt_search");
+            var reg = /^[1-9]{1}[\d]*$/;
+            var url = "/api/Apis"
             function load()
-            {
-                var url = "/api/Apis"
+            {               
                 tbody.html("");
+                txt_search.val("");
                 var doc = $(document.createDocumentFragment());
                 $.ajax({
                     type: "Get",
@@ -143,6 +155,38 @@
                         }
                     }
                 })
+            });
+            //========================================按下顯示所有=============================================
+            search_all.click(function () {
+                load();
+            });
+            //========================================按下查詢==================================================
+            btn_search.click(function () {
+                if (reg.test(txt_search.val())) {
+                    $.ajax({
+                        type: "Get",
+                        url: url + "/" + txt_search.val()
+                    }).done(function (datas) {
+                        if (datas != null) {
+                            tbody.text("");
+                            var tr = $("<tr></tr>");
+                            var td1 = $("<td></td>").text(datas.ShipperID);
+                            var td2 = $("<td></td>").append($("<p></p>").text(datas.CompanyName));
+                            var td3 = $("<td></td>").append($("<p></p>").text(datas.Phone));
+                            var td4 = $("<td></td>").append("<button title='編輯' name='btn_edit' class='btn btn-info mr-1'><i class='far fa-edit'></i></button> <button name='btn_del' title='刪除' class='btn btn-danger ml-1'><i class='fas fa-trash-alt'></i></button>");
+                            tr.append([td1, td2, td3, td4]);
+                            tbody.append(tr);
+                        }
+                        else {
+                            alert("沒有此公司編號!!");
+                            txt_search.val("");
+                        }
+                   })
+                }
+                else {
+                    alert("請輸入0以上的數值");
+                    txt_search.val("");
+                }
             });
         });
     </script>

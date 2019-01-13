@@ -15,6 +15,10 @@ namespace InterViewUse.Controllers
         {
             return shippers.GetAll();
         }
+        public Shippers GetOneShippers(int id)
+        {
+            return shippers.GetByID(id);
+        }
         //===============================新增一筆資料=====================================
         public IHttpActionResult PostNewone(Shippers sh)
         {
