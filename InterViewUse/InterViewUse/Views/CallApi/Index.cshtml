@@ -44,10 +44,10 @@
             var btn_create = $("button[name='btn_create']");
             var tbody = $("#tbody");
             var url = "/api/Apis"
-            var doc = $(document.createDocumentFragment());
             function load()
             {
                 tbody.html("");
+                var doc = $(document.createDocumentFragment());
                 $.ajax({
                     type: "Get",
                     url: url
@@ -55,9 +55,9 @@
                     $.each(datas, function (i, v) {
                         var tr = $("<tr></tr>");
                         var td1 = $("<td></td>").text(v.ShipperID);
-                        var td2 = $("<td></td>").text(v.CompanyName);
-                        var td3 = $("<td></td>").text(v.Phone);
-                        var td4 = $("<td></td>").append("<button title='編輯' class='btn btn-info mr-1'><i class='far fa-edit'></i></button> <button title='刪除' class='btn btn-danger ml-1'><i class='fas fa-trash-alt'></i></button>");
+                        var td2 = $("<td></td>").append($("<p></p>").text(v.CompanyName));
+                        var td3 = $("<td></td>").append($("<p></p>").text(v.Phone));
+                        var td4 = $("<td></td>").append("<button title='編輯' name='btn_edit' class='btn btn-info mr-1'><i class='far fa-edit'></i></button> <button name='btn_del' title='刪除' class='btn btn-danger ml-1'><i class='fas fa-trash-alt'></i></button>");
                         tr.append([td1, td2, td3, td4]);
                         doc.append(tr);
                     });
@@ -65,20 +65,49 @@
                 });
             }
             load();
+            //=======================================按下新增=========================================
             btn_create.click(function () {
                 var datas = JSON.stringify({ "CompanyName": $("#CompanyName").val(), "Phone": $("#Phone").val() })
                 $.ajax({
                     type: "Post",
                     url: url,
-                    contentType:"application/json",
+                    contentType: "application/json",
                     data: datas,
                     statusCode: {
                         201: function (data) {
                             alert("新增成功");
                             load();
                         }
+                    }               
+                });
+            });
+            //========================================按下修改=========================================
+            tbody.on("click", "td>button[name='btn_edit']", function () {
+                var edit_ok = false;
+                $(this).parents("tr").find("p").each(function () {
+                    if (!$(this).attr("contentEditable")) {
+                        $(this).attr("contentEditable", true).css("border", "1px solid red");
                     }
-                })
+                    else {
+                        $(this).removeAttr("contentEditable").removeAttr("style");
+                        edit_ok = true;
+                    }                                        
+                });
+                if (edit_ok) {
+                    var datas = JSON.stringify({ "ShipperID": $(this).parents("tr").children("td:nth-child(1)").text(), "CompanyName": $(this).parents("tr").children("td:nth-child(2)").find("p").text(), "Phone": $(this).parents("tr").children("td:nth-child(3)").find("p").text() });
+                    $.ajax({
+                        type: "Put",
+                        url: url,
+                        contentType: "application/json",
+                        data: datas,
+                        statusCode: {
+                            204: function (data) {
+                                alert("修改成功");
+                                load();
+                            }
+                        }
+                    });
+                }                  
             });
         });
     </script>
