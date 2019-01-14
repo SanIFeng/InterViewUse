@@ -7,7 +7,6 @@
     商城
     @if (Model.shopping_car != null)
     {
-        @*<input id="shop_car_count" type="hidden" value="@Model.shopping_car.Count" />*@
         foreach (var sc in Model.shopping_car)
         {
             <input type="hidden" name="shop_car_count_value" value="@sc" />
@@ -86,7 +85,7 @@
                 $(this).text("已購買").attr({ "disabled": true }).removeClass("btn-primary").addClass("btn-success");
                 count.push($(this).data("value"));
                 shop_car.text(count.length);
-                $.post("/Shop/Accounting", { id: count })
+                $.post("/Shop/Getsession", { id: count })
             });
         });
     </script>

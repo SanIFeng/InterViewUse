@@ -13,16 +13,57 @@
         }
     }
 </h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(p => p.products.FirstOrDefault().ProductName)</th>
+            <th>@Html.DisplayNameFor(p => p.products.FirstOrDefault().UnitPrice)</th>
+            <th>圖片</th>
+        </tr>
+    </thead>
+    <tbody id="tbody">
+        @if (Model.products != null)
+        {
+            foreach (var p in Model.products)
+            {
+                <tr>
+                    <td>@p.ProductName</td>
+                    <td name="m_mony">@(string.Format($"{p.UnitPrice:c2}"))</td>
+                    <td>
+                        <img src="@Url.Action("GetImage", "Shop", new { id = p.Categories.CategoryID })" />
+                    </td>
+                </tr>
+            }
+
+        <tr>
+            <td colspan="3">
+                總金額為:<strong id="m_total"></strong>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <a href="~/Shop/Accounting/1" class="btn btn-outline-danger">刪除</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
 @section script{
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             var count = [];
+            var total = 0;
             var shop_car = $("#shop_car");
+            var tbody = $("#tbody");
             $("h2>input[name='shop_car_count_value']").each(function () {
                 count.push($(this).val());
             });
             shop_car.text(count.length);
+            tbody.find("td[name='m_mony']").each(function () {
+                total += parseInt($(this).text().substring(3))
+            });
+            $("#m_total").text(total)
         });
     </script>
-    }
+}
 
