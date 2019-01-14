@@ -242,6 +242,7 @@
     <Content Include="Views\Home\Delete_shih_partial.cshtml" />
     <Content Include="Views\CallApi\Index.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\Shop\Accounting.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

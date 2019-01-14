@@ -13,7 +13,7 @@ namespace InterViewUse.Models
         public class MetadataUse
         {
             [DisplayName("產品名稱")]
-            public string ProductName { get; set; }
+            public string ProductName { get; set; }           
             [DisplayName("產品單價")]
             public Nullable<decimal> UnitPrice { get; set; }
             [DisplayName("產品庫存")]

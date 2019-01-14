@@ -13,6 +13,7 @@ namespace InterViewUse.Controllers
         Repository<Products> products = new Repository<Products>();
         ShopUse shopuse = new ShopUse();
         // GET: Shop
+        //=================================商城首頁===============================================
         public ActionResult Index(int id = 0)
         {
             shopuse.categories = categories.GetAll();
@@ -30,6 +31,7 @@ namespace InterViewUse.Controllers
             }
 
         }
+        //=================================讀取資料庫圖片用=============================================
         public FileContentResult GetImage(int id)
         {
             var findimage = categories.GetByID(id);
@@ -39,6 +41,11 @@ namespace InterViewUse.Controllers
                 ms.Write(getimages, 78, getimages.Length - 78);
                 return File(ms.ToArray(), "image/png");
             }
+        }
+        //=========================================購物車結帳頁面=========================================
+        public ActionResult Accounting()
+        {
+            return View();
         }
     }
 }

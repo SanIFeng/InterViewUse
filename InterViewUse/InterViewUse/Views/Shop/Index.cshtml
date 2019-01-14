@@ -16,29 +16,33 @@
         </div>
     </div>
     <div class="shop_product">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(p => p.products.FirstOrDefault().ProductName)</th>
-                    <th>@Html.DisplayNameFor(p => p.products.FirstOrDefault().UnitPrice)</th>
-                    <th>@Html.DisplayNameFor(p => p.products.FirstOrDefault().UnitsInStock)</th>
-                    <th>種類照片</th>
-                </tr>
-            </thead>
-            <tbody >
-                @foreach (var p in Model.products)
-                {
-                    <tr>
-                        <td>@p.ProductName</td>
-                        <td>@p.UnitPrice</td>
-                        <td>@p.UnitsInStock</td>
-                        <td>
-                            <img src="@Url.Action("GetImage","Shop",new {id = p.CategoryID})" />
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        @foreach (var p in Model.products)
+        {
+            <div class="card shop_card">
+                <img src="@Url.Action("GetImage","Shop",new {id = p.CategoryID})" class="card-img-top" alt="種類照片">
+                <div class="card-body">
+                    <h6 class="card-title">@Html.DisplayNameFor(pt => pt.products.FirstOrDefault().ProductName) : @p.ProductName</h6>
+                    @if (p.UnitsInStock != 0)
+                    {
+                        <p class="card-text">
+                            @Html.DisplayNameFor(pt => pt.products.FirstOrDefault().UnitPrice) : @(string.Format($"{p.UnitPrice:C2}"))
+                            <br />
+                            @Html.DisplayNameFor(pt => pt.products.FirstOrDefault().UnitsInStock) :@p.UnitsInStock
+                        </p>
+                        <button type="button" class="btn btn-primary">放入購物車</button>
+                    }
+                    else
+                    {
+                        <p class="card-text">
+                            @Html.DisplayNameFor(pt => pt.products.FirstOrDefault().UnitPrice) : @(string.Format($"{p.UnitPrice:C2}"))
+                            <br />
+                            @Html.DisplayNameFor(pt => pt.products.FirstOrDefault().UnitsInStock) :@p.UnitsInStock
+                        </p>
+                        <button type="button" class="btn btn-warning" disabled>已無庫存</button>
+                    }
+                </div>
+            </div>
+        }        
     </div>
 </div>
 @section script{
