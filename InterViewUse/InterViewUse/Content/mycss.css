@@ -13,6 +13,10 @@
 table {
     table-layout: fixed;
     word-break: break-all;
+    width:100%;
+}
+img{
+    width:100%;
 }
 tr {
     text-align: center;   
@@ -62,5 +66,15 @@ thead {
     }
     .mr-1{
         margin-right:0px !important;
+    }
+    .shop_card {
+        width: 98%;
+        margin: 1%;
+        float: left;
+        height: 350px;
+    }
+    .shop_list {
+        width: 98%;
+        margin: 1%;
     }
 }

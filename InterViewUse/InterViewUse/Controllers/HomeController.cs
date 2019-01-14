@@ -12,7 +12,11 @@ namespace InterViewUse.Controllers
         Repository<Shippers> shippers = new Repository<Shippers>();
         // GET: Home
         public ActionResult Index()
-        {   
+        {
+            if (Session["shopping_car"] != null)
+            {
+                ViewBag.car = ((List<int>)Session["shopping_car"]).Count;
+            }
            return View(shippers.GetAll());           
         }
         public ActionResult Search(int id = 0)

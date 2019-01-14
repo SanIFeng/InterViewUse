@@ -11,6 +11,10 @@ namespace InterViewUse.Controllers
         // GET: CallApi
         public ActionResult Index()
         {
+            if (Session["shopping_car"] != null)
+            {
+                ViewBag.car = ((List<int>)Session["shopping_car"]).Count;
+            }
             return View();
         }
     }

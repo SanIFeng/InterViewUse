@@ -55,6 +55,8 @@
             var btn_search = $("#btn_search");
             var reg = /^[1-9]{1}[\d]*$/;
             var txt_search = $("#txt_search");
+            var shop_car = $("#shop_car");
+            shop_car.text(@ViewBag.car);
             CreateNew.click(function () {
                 show_partial.load('@Url.Action("CreateNewOne_partial", "Home")')
                 $(this).attr({ "data-toggle": "modal", "data-target": "#createnewone" })               
