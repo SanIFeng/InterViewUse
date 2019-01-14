@@ -20,12 +20,20 @@ namespace InterViewUse.Controllers
             if (id == 0)
             {
                 TempData["change"] = 0;
+                if(Session["shopping_car"] != null)
+                {
+                   shopuse.shopping_car = Session["shopping_car"] as List<int>;
+                }               
                 shopuse.products = products.GetAll();
                 return View(shopuse);
             }
             else
             {
                 TempData["change"] = id;
+                if (Session["shopping_car"] != null)
+                {
+                    shopuse.shopping_car = Session["shopping_car"] as List<int>;
+                }
                 shopuse.products = products.GetAll().Where(p => p.CategoryID == id).Select(p => p);
                 return View(shopuse);
             }
@@ -45,7 +53,14 @@ namespace InterViewUse.Controllers
         //=========================================購物車結帳頁面=========================================
         public ActionResult Accounting()
         {
-            return View();
+            shopuse.shopping_car = Session["shopping_car"] as List<int>;
+            return View(shopuse);
+        }
+        [HttpPost]
+        public ActionResult Accounting(List<int> id)
+        {
+            Session["shopping_car"] = id;
+            return new EmptyResult();
         }
     }
 }

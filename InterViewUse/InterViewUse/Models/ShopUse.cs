@@ -9,5 +9,6 @@ namespace InterViewUse.Models
     {
         public IEnumerable<Categories> categories { get; set; }
         public IEnumerable<Products> products { get; set; }
+        public List<int> shopping_car { get; set; }
     }
 }

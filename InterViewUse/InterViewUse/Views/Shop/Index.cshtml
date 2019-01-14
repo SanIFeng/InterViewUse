@@ -3,11 +3,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>商城</h2>
+<h2>
+    商城
+    @if (Model.shopping_car != null)
+    {
+        @*<input id="shop_car_count" type="hidden" value="@Model.shopping_car.Count" />*@
+        foreach (var sc in Model.shopping_car)
+        {
+            <input type="hidden" name="shop_car_count_value" value="@sc" />
+        }
+    }
+</h2>
 <div class="screen">
     <div class="shop_list">
         <div id="category_list" class="list-group">
-            <a id="cate_init" href="#" data-value="@TempData["change"]" class="list-group-item list-group-item-action disabled">產品種類</a>
+            <p id="cate_init" href="#" data-value="@TempData["change"]" class="list-group-item list-group-item-action disabled">產品種類</p>
             <a href="~/Shop/Index/0" name="category_title_id" data-value="0" class="list-group-item list-group-item-action ">所有產品</a>
             @foreach (var c in Model.categories)
             {
@@ -15,7 +25,7 @@
             }
         </div>
     </div>
-    <div class="shop_product">
+    <div id="d_prod" class="shop_product">
         @foreach (var p in Model.products)
         {
             <div class="card shop_card">
@@ -29,7 +39,14 @@
                             <br />
                             @Html.DisplayNameFor(pt => pt.products.FirstOrDefault().UnitsInStock) :@p.UnitsInStock
                         </p>
-                        <button type="button" class="btn btn-primary">放入購物車</button>
+                        if (Model.shopping_car != null && Model.shopping_car.Contains(p.ProductID))
+                        {
+                            <button name="btn_shopping" data-value="@p.ProductID" type="button" class="btn btn-success" disabled>已購買</button>
+                        }
+                        else
+                        {
+                            <button name="btn_shopping" data-value="@p.ProductID" type="button" class="btn btn-primary">放入購物車</button>
+                        }
                     }
                     else
                     {
@@ -38,17 +55,19 @@
                             <br />
                             @Html.DisplayNameFor(pt => pt.products.FirstOrDefault().UnitsInStock) :@p.UnitsInStock
                         </p>
-                        <button type="button" class="btn btn-warning" disabled>已無庫存</button>
+                        <button name="btn_shopping" type="button" class="btn btn-warning" disabled>已無庫存</button>
                     }
                 </div>
             </div>
-        }        
+        }
     </div>
 </div>
 @section script{
     <script>
         $(document).ready(function () {
-            console.log($("#cate_init").data("value"));
+            var shop_car = $("#shop_car");
+            var d_prod = $("#d_prod");
+            var count = [];
             if ($("#cate_init").data("value") == 0) {
                 $("a[name='category_title_id']").addClass("active");
             }
@@ -59,6 +78,16 @@
                     }
                 });
             }
+            $("h2>input[name='shop_car_count_value']").each(function () {
+                count.push($(this).val());
+            });
+            shop_car.text(count.length);
+            d_prod.on("click", "div>button[name='btn_shopping']", function () {
+                $(this).text("已購買").attr({ "disabled": true }).removeClass("btn-primary").addClass("btn-success");
+                count.push($(this).data("value"));
+                shop_car.text(count.length);
+                $.post("/Shop/Accounting", { id: count })
+            });
         });
     </script>
 }

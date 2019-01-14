@@ -1,7 +1,28 @@
-﻿
+﻿@model InterViewUse.Models.ShopUse
 @{
     ViewBag.Title = "Accounting";
 }
 
-<h2>結帳頁面</h2>
+<h2>
+    結帳頁面
+    @if (Model.shopping_car != null)
+    {
+        foreach (var sc in Model.shopping_car)
+        {
+            <input type="hidden" name="shop_car_count_value" value="@sc" />
+        }
+    }
+</h2>
+@section script{
+    <script>
+        $(document).ready(function(){
+            var count = [];
+            var shop_car = $("#shop_car");
+            $("h2>input[name='shop_car_count_value']").each(function () {
+                count.push($(this).val());
+            });
+            shop_car.text(count.length);
+        });
+    </script>
+    }
 
